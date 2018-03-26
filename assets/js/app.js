@@ -9,11 +9,14 @@ var gifGenerator = {
 
         $("#buttons").empty();
         for (var i = 0; i < this.topics.length; i++) {
-            $("<button>").text(this.topics[i]).addClass("gif-button").appendTo($("#buttons"));
+            $("<button>").text(this.topics[i]).addClass("gif-button").attr("id", this.topics[i]).appendTo($("#buttons"));
         }
     },
 
     renderGifs: function(keyword) {
+        this.cleanErrors();
+        $("#new-button-text").val("");
+
         $.ajax({
             url: this.queryURL,
             data: {
@@ -28,7 +31,7 @@ var gifGenerator = {
             for (var i = 0; i < response.data.length; i++) {
                 var newGif = $("<div>").appendTo("#gifs");
 
-                var rating = $("<p>").appendTo(newGif);
+                var rating = $("<p>").addClass("rating").appendTo(newGif);
                 if (response.data[i].rating) {
                     rating.text("Rating: " + response.data[i].rating.toUpperCase());
                 } else {
@@ -41,13 +44,14 @@ var gifGenerator = {
                     state: "still",
                     still: response.data[i].images.fixed_height_still.url,
                     animated: response.data[i].images.fixed_height.url,
-                    id: keyword
                 }).appendTo(newGif);
             }
         });
     },
 
     addButton: function(newButtonText) {
+        this.cleanErrors();
+
         if (this.topics.indexOf(newButtonText) === -1) {
             $("#new-button-text").val("");
             this.topics.push(newButtonText);
@@ -55,6 +59,7 @@ var gifGenerator = {
         } else {
             $("#new-button-text").select();
             $("<p>").addClass("error-text").text("That button already exists!").appendTo(".add-form");
+            $("#" + newButtonText).addClass("existing-button");
         }
     },
 
@@ -70,6 +75,11 @@ var gifGenerator = {
             src: $(gif).attr("still"),
             state: "still"
         });
+    },
+
+    cleanErrors: function() {
+        $(".error-text").remove();
+        $(".existing-button").removeClass("existing-button");
     }
 }
 

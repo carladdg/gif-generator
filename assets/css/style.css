@@ -6,11 +6,11 @@ body {
 
 .wrapper {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 3fr 1fr;
     grid-template-areas:
         "header header"
-        "buttons add-form"
-        "gifs gifs";
+        "buttons buttons"
+        "gifs add-form";
 }
 
 header {
@@ -43,14 +43,34 @@ h2 {
 
 #buttons {
     grid-area: buttons;
+    justify-self: center;
     
     margin-top: 25px;
-    margin-left: 30px;
+    margin-left: 25px;
+    margin-right: 25px;
+}
+
+.gif-button, #add-button {
+    margin: 5px;
+
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    color: #3B5957;
+    border: 2px solid #3B5957;
+    transition-duration: 0.4s;
+
+    font-size: 1em;
+}
+
+.gif-button:hover, #add-button:hover {
+    background-color: #3B5957;
+    color: #FFFFFF;
 }
 
 .add-form {
     grid-area: add-form;
     justify-self: end;
+    align-self: start;
 
     margin-top: 25px;
     margin-right: 30px;
@@ -62,6 +82,42 @@ h2 {
 
 #gifs {
     grid-area: gifs;
+
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-around;
+
+    margin-top: 25px;
+    margin-left: 25px;
+    margin-bottom: 30px;
+}
+
+.rating {
+    margin-bottom: 10px;
+
+    color: #3B5957;
+    font-family: "Century Gothic", "HelveticaNeueLT Pro 45 Lt", sans-serif; 
+    font-weight: 700;
+}
+
+.gif {
+    margin-bottom: 15px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.error-text {
+    padding-top: 15px;
+    font-family: "Century Gothic", "HelveticaNeueLT Pro 45 Lt", sans-serif; 
+    color: #FFFFFF;
+    text-shadow:
+        -1px -1px 0 #3B5957,  
+        1px -1px 0 #3B5957,
+        -1px 1px 0 #3B5957,
+        1px 1px 0 #3B5957;
+    font-weight: 400;
+}
+
+.existing-button {
+    background-color: #78bcb4;
 }
